@@ -1,7 +1,10 @@
-import math         # Para usar logaritmos y cálculos matemáticos
-import re           # Para hacer expresiones regulares y limpiar texto
-from collections import defaultdict, Counter  # Estructuras útiles para contar y agrupar palabras
-from sklearn.metrics import classification_report  # Solo para evaluar el modelo (no se usa para entrenar)
+import math
+import pickle
+import re
+from collections import Counter, defaultdict
+
+from sklearn.metrics import classification_report
+
 
 class NaiveBayesClassifier:
     def __init__(self):
@@ -14,13 +17,10 @@ class NaiveBayesClassifier:
         # Total de documentos usados en el entrenamiento
         self.total_docs = 0
 
-
     def tokenize(self, text):
-        # Extrae palabras alfabéticas, convierte a minúsculas y descarta palabras de 1 o 2 letras
         tokens = re.findall(r'\b\w+\b', text.lower())
         return [t for t in tokens if len(t) > 2]
 
-    #Entrenamiento del clasificador
     def train(self, data):
         for text, label in data:
             self.total_docs += 1                           # Aumenta el contador de documentos totales
@@ -42,10 +42,7 @@ class NaiveBayesClassifier:
             total_words = sum(self.class_word_counts[label].values())
 
             for token in tokens:
-                # Conteo de la palabra en la clase + 1 (Laplace smoothing para evitar probabilidad 0)
                 word_freq = self.class_word_counts[label][token] + 1
-
-                # Probabilidad condicional de la palabra en esta clase
                 word_prob = word_freq / (total_words + len(self.vocab))
 
                 # Suma del log de la probabilidad
@@ -58,14 +55,24 @@ class NaiveBayesClassifier:
 
 
 def evaluate_model(classifier, test_data):
-        y_true = []  # Etiquetas reales
-        y_pred = []  # Etiquetas predichas por el modelo
+    y_true = []
+    y_pred = []
+    for text, true_label in test_data:
+        pred = classifier.predict(text)
+        y_true.append(true_label)
+        y_pred.append(pred)
+    report_dict = classification_report(y_true, y_pred, output_dict=True, zero_division=0)
+    return report_dict
 
-        for text, true_label in test_data:
-            pred = classifier.predict(text)  # Predicción del modelo
-            y_true.append(true_label)
-            y_pred.append(pred)
+def save_model(classifier, evaluation_report, path='model/modelo_entrenado.pkl'):
+    with open(path, 'wb') as f:
+        pickle.dump({
+            "classifier": classifier,
+            "evaluation": evaluation_report
+        }, f)
 
-        # Genera el reporte de evaluación como diccionario JSON (precision, recall, f1-score, etc.)
-        report_dict = classification_report(y_true, y_pred, output_dict=True, zero_division=0)
-        return report_dict
+def load_model(path='model/modelo_entrenado.pkl'):
+    with open(path, 'rb') as f:
+        data = pickle.load(f)
+        return data["classifier"], data.get("evaluation", {})
+

@@ -8,7 +8,7 @@ async function classifyText() {
     });
     const data = await res.json();
     document.getElementById("output").innerText =
-        `Categoría: ${data.category} (en ${data.elapsed_ms} ms)`;
+        `Categoría: ${data.category} (en 0.${data.elapsed_ms} ms)`;
 }
 
 async function fetchReport() {
