@@ -13,7 +13,7 @@ Este proyecto implementa un clasificador de noticias basado en el dataset **BBC 
 
 
 ## 📁 Estructura del Proyecto
-
+```
 ProyectoIA/
 ├── app.py                 # Servidor Flask
 ├── model/
@@ -29,16 +29,21 @@ ProyectoIA/
 │   └── script.js          # Lógica de frontend
 ├── requirements.txt       # Dependencias del proyecto
 └── README.md              # Este archivo
+```
 
 ## ▶️ ¿Cómo ejecutar el proyecto?
 
 1. Clona este repositorio o descarga el ZIP.
 2. Asegúrate de tener Python 3.10+
 3. Instala dependencias utilizando este comando en la consola:
+```
     pip install -r requirements.txt
+```
     
 4. Ejecuta la app:
+```
     python app.py
+```
 5. Abre en el navegador:
 
     http://127.0.0.1:5000/
