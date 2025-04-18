@@ -1,0 +1,64 @@
+body  {
+    font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+#reportTable {
+    border-collapse: collapse;
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  #reportTable th,
+  #reportTable td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  #reportTable th {
+    background-color: #f2f2f2;
+  }
+
+  #BottonRow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #output {
+    font-size: 24px;
+    margin-top: 20px;
+    text-align: center;
+    color: #333;
+  }
+  
+textarea {
+    width: 60%;
+    height: 200px;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 32px;
+    resize: none;
+  }
+  
+  button {
+    width: 60%;
+    font-size: 24px;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+
+ 
